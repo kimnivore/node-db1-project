@@ -13,17 +13,19 @@ router.get('/', async (req, res, next) => {
 });
 
 router.get('/:id', checkAccountId, async (req, res, next) => {
-  try{
-    const account = await Accounts.getById(req.params.id);
-    res.json(account);
-  } catch (err) {
-    next(err)
-  }
+  res.json(req.account);
+  // try{
+  //   const account = await Accounts.getById(req.params.id);
+  //   res.json(account);
+  // } catch (err) {
+  //   next(err)
+  // }
 });
 
-router.post('/', checkAccountPayload, checkAccountNameUnique, (req, res, next) => {
+router.post('/', checkAccountPayload, checkAccountNameUnique, async (req, res, next) => {
   try{
-
+    const account = await Accounts.create(req.body)
+    res.json(account)
   } catch (err) {
     next(err)
   }
