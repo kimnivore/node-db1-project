@@ -17,8 +17,8 @@ const getById = id => {
 
 //http post :9000/api/accounts name='kim' budget=100
 // INSERT INTO accounts (name, budget) VALUES ('kim', '100');
-const create = account => {
-  const [id] = db('accounts').insert(account);
+const create = async account => {
+  const [id] = await db('accounts').insert(account);
   return getById(id); 
 }
 
