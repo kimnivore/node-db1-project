@@ -34,10 +34,7 @@ const updateById = (id, account) => {
 //http delete :9000/api/accounts/14
 // DELETE FROM accounts WHERE id = 14;
 const deleteById = id => {
- const result = db('shippers')
-  .where('id', id)
-  .del()
-  return result;
+  return db('accounts').where('id', id).del()
 }
 
 module.exports = {
