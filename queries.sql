@@ -7,13 +7,16 @@ SELECT * FROM Customers WHERE postalcode = '1010';
 SELECT phone FROM suppliers WHERE supplierid = 1;
 
 -- List first 10 orders placed, sorted descending by the order date
-SELECT * FROM orders WHERE customerID > 0 LIMIT 10 ORDER BY orderdate DESC;
+SELECT * FROM orders ORDER BY orderdate DESC LIMIT 10;
 
 -- Find all customers that live in London, Madrid, or Brazil
+SELECT * FROM customers WHERE city = 'London' or city = 'Madrid' or city = 'Brazil';
 
 -- Add a customer record for "The Shire", the contact name is "Bilbo Baggins" the address is -"1 Hobbit-Hole" in "Bag End", postal code "111" and the country is "Middle Earth"
+INSERT INTO customers (customername, contactname, address, postalcode, country) VALUES ('The Shire', 'Bilbo Baggins', '1 Hobbit-Hole', '111', 'Middle Earth');
 
 -- Update Bilbo Baggins record so that the postal code changes to "11122"
+UPDATE customers SET postalcode = '11122' WHERE contactname = 'Bilbo Baggins';
 
 -- (Stretch) Find a query to discover how many different cities are stored in the Customers table. Repeats should not be double counted
 
