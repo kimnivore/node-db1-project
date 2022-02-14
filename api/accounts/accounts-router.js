@@ -1,10 +1,19 @@
 const router = require('express').Router()
 const Accounts = require('./accounts-model');
-const {} = require('./accounts-middleware');
+const {checkAccountPayload, checkAccountNameUnique, checkAccountId} = require('./accounts-middleware');
 
 
 router.get('/', (req, res, next) => {
-  
+  Accounts.getAll()
+    .then(accounts => {
+      res.status(200).json(accounts);
+    })
+    .catch(error => {
+      next(error);
+      res.status(500).json({
+        message: 'Error retrieving accounts',
+      })
+    })
 })
 
 router.get('/:id', (req, res, next) => {
