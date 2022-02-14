@@ -12,14 +12,14 @@ const getAll = () => {
 // SELECT * FROM accounts where id = 1;
 const getById = id => {
   return db('accounts')
-    .where('id', 'name', 'budget');
+    .where('id', id).first();
 }
 
 //http post :9000/api/accounts name='kim' budget=100
 // INSERT INTO accounts (name, budget) VALUES ('kim', '100');
 const create = account => {
   const [id] = db('accounts').insert(account);
-  return getById(id);
+  return getById(id); 
 }
 
 //http put :9000/api/accounts/1 name="kimmy" budget="100"

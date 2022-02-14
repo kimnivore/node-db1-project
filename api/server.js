@@ -8,8 +8,8 @@ server.use(express.json());
 
 server.use('/api/accounts', accountsRouter)
 
-server.get('/', async (req, res) => {
-    res.status(200).json({ api: 'up' })
+server.get('*', (req, res) => {
+    res.status(404).json({ message: 'not found' })
 })
 
 module.exports = server;

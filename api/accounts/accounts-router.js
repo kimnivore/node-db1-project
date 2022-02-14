@@ -3,33 +3,46 @@ const Accounts = require('./accounts-model');
 const {checkAccountPayload, checkAccountNameUnique, checkAccountId} = require('./accounts-middleware');
 
 
-router.get('/', (req, res, next) => {
-  Accounts.getAll()
-    .then(accounts => {
-      res.status(200).json(accounts);
-    })
-    .catch(error => {
-      next(error);
-      res.status(500).json({
-        message: 'Error retrieving accounts',
-      })
-    })
-})
-
-router.get('/:id', (req, res, next) => {
-
-})
-
-router.post('/', (req, res, next) => {
-  
-})
-
-router.put('/:id', (req, res, next) => {
-  
+router.get('/', async (req, res, next) => {
+  try {
+    const accounts = await Accounts.getAll();
+    res.json(accounts)
+  } catch (err) {
+    next(err)
+  }
 });
 
-router.delete('/:id', (req, res, next) => {
-  
+router.get('/:id', checkAccountId, async (req, res, next) => {
+  try{
+    const account = await Accounts.getById(req.params.id);
+    res.json(account);
+  } catch (err) {
+    next(err)
+  }
+});
+
+router.post('/', checkAccountPayload, checkAccountNameUnique, (req, res, next) => {
+  try{
+
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/:id', checkAccountId, checkAccountPayload, checkAccountNameUnique, (req, res, next) => {
+  try{
+
+  } catch (err) {
+    next(err)
+  }
+});
+
+router.delete('/:id', checkAccountId, (req, res, next) => {
+  try{
+
+  } catch (err) {
+    next(err)
+  }
 })
 
 router.use((err, req, res, next) => { // eslint-disable-line
