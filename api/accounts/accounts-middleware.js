@@ -1,14 +1,35 @@
+const Accounts = require('./accounts-model');
+
 exports.checkAccountPayload = (req, res, next) => {
-  // DO YOUR MAGIC
-  // Note: you can either write "manual" validation logic
-  // or use the Yup library (not currently installed)
+ if(req.body.name && req.body.name.trim()) {
+   req.body.name = req.body.name.trim();
+   next()
+ } else {
+   next({
+     status: 400,
+     message: 'account requires a valid name',
+   })
+ }
 }
 
 exports.checkAccountNameUnique = (req, res, next) => {
-  // DO YOUR MAGIC
+  const name = req.body.name;
+  if(name || name.trim()) {
+    res.status(404).json({message: 'that name is taken'})
+  } else {
+    req.name = name.trim();
+    next();
+  }
 }
 
 exports.checkAccountId = (req, res, next) => {
-  // DO YOUR MAGIC
+  const id = req.params.id;
+  const account = Accounts.getById(id);
+  if(!account) {
+    res.status(404).json({message: 'account not found'});
+  } else {
+    req.account = account;
+    next();
+  }
 }
 
