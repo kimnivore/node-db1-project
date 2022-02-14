@@ -24,17 +24,15 @@ const create = async account => {
 
 //http put :9000/api/accounts/1 name="kimmy" budget="100"
 // UPDATE accounts SET name = 'kimmy', budget = '100' WHERE id = 1;
-const updateById = (id, account) => {
-  db('accounts')
-    .where('id', id)
-    .update(account)
+const updateById = async (id, account) => {
+  await db('accounts').where('id', id).update(account)
   return getById(id);
 }
 
 //http delete :9000/api/accounts/14
 // DELETE FROM accounts WHERE id = 14;
 const deleteById = id => {
-  return db('accounts').where('id', id).del()
+  return db('accounts').where('id', id).del();
 }
 
 module.exports = {

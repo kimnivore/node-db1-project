@@ -14,12 +14,6 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', checkAccountId, async (req, res, next) => {
   res.json(req.account);
-  // try{
-  //   const account = await Accounts.getById(req.params.id);
-  //   res.json(account);
-  // } catch (err) {
-  //   next(err)
-  // }
 });
 
 router.post('/', checkAccountPayload, checkAccountNameUnique, async (req, res, next) => {
@@ -31,9 +25,11 @@ router.post('/', checkAccountPayload, checkAccountNameUnique, async (req, res, n
   }
 })
 
-router.put('/:id', checkAccountId, checkAccountPayload, checkAccountNameUnique, (req, res, next) => {
+router.put('/:id', checkAccountId, checkAccountPayload, async (req, res, next) => {
+  
   try{
-
+    const updated = await Accounts.updateById(req.params.id, req.body)
+    res.json(updated)
   } catch (err) {
     next(err)
   }
